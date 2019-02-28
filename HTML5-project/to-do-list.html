@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html>
+<head>
+       <meta charset="utf-8">    
+       <title>To-Do list</title>
+      <style>
+          .task:nth-child(odd){
+              background-color:rgba(255,0,0,0.9);
+              width :auto;
+              height:auto;
+              
+          }
+           .task:nth-child(even){
+              background-color:rgba(255,0,0,0.5);
+              width :auto;
+              height:auto;
+            
+          }
+          .task{
+              border-style: ridge;
+              border-width: 10px;
+              border-color: goldenrod;
+              
+          }
+          #todo{
+              border-width: 10px;
+              border-style: groove;
+              border-color: palevioletred;
+          }
+    
+          .task h1{
+              border-style: dashed;
+          }
+          input[type="text"]{
+              font-size: 300%;
+              margin-bottom: 30px;
+              background: linear-gradient(to bottom left,aquamarine,orange);
+            
+          }
+          .task,p,h1{
+              margin:0px; 
+               }
+          .mySpan{
+              width: 35px;
+              height: 37px;
+              float: right;
+              
+          }
+          input[type="checkbox"]{
+              float:left;
+              height: 30px;
+              width: 20px;
+              margin: 0px;
+          }
+          input[type="date"]{
+               position: relative;
+              
+              
+          }
+          
+          
+          span:hover{
+              cursor: context-menu;
+              background-color: #b4e7f2;
+          }
+          
+          #heading{
+              font-size: 300%;
+              font-family: monospace;
+              background-color: mediumpurple;
+              border-style: groove;
+              border-color: darkcyan;
+              border-width: 10px;
+          }
+          #insert{
+           font-size: 200%;
+            background-color: #a9f3d9; 
+            border-style: ridge;
+            border-color: blueviolet;
+             
+              
+          }
+          .task button{
+              position: relative;
+              float: right;
+              width:200px;
+              color: blue;
+              background-color: #4ceae4;
+             font-size: 150%;
+          }
+          textarea{
+              position: static;
+              transition:height 1s,width 1s;
+              width: 500px;
+              transform: translate(450px);
+/*            visibility: hidden;*/
+          }
+         
+          #addComment{
+              position: relative;
+              top: -25px;
+              left: 50vw;
+              width: 100px;
+              display: none;
+          }
+          #view{
+              position: relative;
+              left: calc(50vw);
+              height: 30px; 
+              outline-style: ridge;
+              outline-color: darkblue;
+              background-color: greenyellow;
+              
+          }
+          table{
+            position: relative;
+            top: 200px;
+            border-collapse: collapse;
+             transform: scale(1.5);
+            transform: translate(300px) scale(2);
+        }
+        td,th{
+        text-align: center;
+        }
+        tr,td,th{
+            border-color: maroon;
+            background-color: green;
+            border-style: solid 
+        }
+          #secondView{
+              position: fixed;
+              visibility: hidden;
+          }
+          #sort{
+              color: darkgreen;
+              background-color: #ea4cdd;
+              transform: translate(50vh);
+              width: 600px;
+              font-size: 200%;
+              display: block;
+          }
+          #note{
+              font-style: italic;
+              color: red;
+          }
+          #tableHeading{
+              transform: scale(1.5) translate(60vh,12px);
+              font-style: italic;
+              color: darkorange;
+              }
+          body{
+              background:radial-gradient(circle,blue 30%,orange 40%,gold 30%);
+          }
+          
+    </style>
+</head>
+<body>
+    <h1 id="note">NOTE: PLEASE UPDATE THE DATA IN THE DIV BY UPDATING WITH THE DATA BUTTON PRESENT AT RIGHT OF THE DIV</h1>
+    <br />
+    <button id="view">CHANGE VIEW</button><br>
+     <div id="secondView">
+      <h1 id="tableHeading">Tasks for september</h1>
+     <table>
+        <tr><th colspan="7">SEPTEMBER</th></tr>
+      <tr><th>Sunday</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th>
+        <th>Thursday</th><th>Friday</th><th>Saturday</th></tr>
+       <tr><td></td><td></td><td></td><td></td><td></td>
+        <td></td><td>1</td></tr>
+        <tr><td>2</td><td>3</td><td>4</td><td>5</td>
+        <td>6</td><td>7</td><td>8</td></tr>
+        <tr><td>9</td><td>10</td><td>11</td><td>12</td>
+        <td>13</td><td>14</td><td>15</td></tr>
+        <tr><td>16</td><td>17</td><td>18</td><td>19</td>
+        <td>20</td><td>21</td><td>22</td></tr>
+        <tr><td>23</td><td>24</td><td>25</td><td>26</td>
+        <td>27</td><td>28</td><td>29</td></tr>
+         <tr><td>30</td></tr>
+    </table>
+    
+    </div>
+    
+    <div id="firstView">
+    <h1 id="heading"> Type a to-do thing: </h1>    
+      <input type="text" id="todo">
+      <button id="insert">INSERT</button>
+    <br />
+    <button id="sort">sort by name of task</button>
+    <br>
+    <button id="addComment">ADD</button>
+           <div id="list">
+    
+    <div id="my1" class="task"><input type="checkbox" class="myCheckbox">
+    <h1 ><span>Read a book</span><span id="span1" class="mySpan"><p>&#10006;</p></span></h1><input placeholder="choose a deadline" type="date" style="position: relative; left: 50px;"><button class="firstButton">Update data</button>
+    <textarea>Type something here</textarea>           </div>
+               
+               
+    </div>
+        </div>
+   <canvas>
+    
+    </canvas>
+    
+    <script>
+      function inf(){
+          var task;
+          var date;
+          var check;
+          var comments;
+      }
+        
+   var length=1;
+        var d=new Date();
+        document.getElementById("my1").querySelector("input").onclick=function(){
+           var today=d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
+document.getElementById("my1").querySelector("input").setAttribute("min",today);
+document.getElementById("my2").querySellector("input").setAttribute("max","2018-9-30");            
+        }
+        
+        update();
+        var arr=new Array();
+        var group= new inf();
+        var first=document.getElementById("my1");
+        group.task=first.querySelector("span").innerHTML;
+        group.check=first.querySelector("input").checked;
+        group.comments=first.querySelector("textarea").value;
+        group.date=first.querySelectorAll("input")[1].value;
+        arr.push(group);
+      
+        function compare(a,b){
+            let comparison=0;
+            if(a.task.toLowerCase()>b.task.toLowerCase())
+                {
+                    comparison=1;
+                    
+                }
+            else if(a.task.toLowerCase()<b.task.toLowerCase())
+                {
+                comparison=0;
+                    
+                }
+            return comparison;
+        }
+        
+        
+        
+        var taskName;
+        
+        var insert=document.getElementById("insert");
+        insert.onclick=function(){
+            var todo=document.getElementById("todo");
+            if(todo.value.length==0)
+            {window.alert("Please enter something...");}
+            else{
+                var group= new inf();
+                var div=document.createElement("DIV");
+                var span=document.createElement("SPAN");
+                var taskSpan=document.createElement("SPAN");
+                var heading=document.createElement("H1");
+                var data=document.createTextNode(todo.value);
+                group.task=todo.value; 
+                taskSpan.appendChild(data);
+                heading.appendChild(taskSpan);
+                var para=document.createElement("P");
+                para.innerHTML="&#10006;";
+                span.appendChild(para);
+                 span.setAttribute("class","mySpan");
+                div.setAttribute("class","task");
+                var input=document.createElement("INPUT");
+                input.setAttribute("type","checkbox");
+                input.setAttribute("class","myCheckbox");
+                group.check=input.checked;
+                div.appendChild(input);
+                var date=document.createElement("INPUT");
+                date.style.position="relative";
+                date.style.left="50px";
+                date.placeholder="choose a deadline";
+                date.setAttribute("type","date");
+                date.setAttribute("value","today");
+                group.date=date.value;
+                heading.append(span);
+                div.appendChild(heading);
+                div.append(date);
+                var button=document.createElement("button");
+                button.append(document.createTextNode("Update data"));
+                div.append(button);
+                var ta=document.createElement("TEXTAREA");
+                ta.setAttribute("value","Write some text here");
+                div.append(ta);
+                group.comments=ta.value;
+                var list=document.getElementById("list");
+                list.appendChild(div);
+                arr.push(group);
+                update();
+            }
+            
+        }
+       var t=document.getElementsByClassName("task");
+        var s=document.getElementsByClassName("mySpan");
+        var c=document.getElementsByClassName("myCheckbox");
+        function update(){
+       t=document.getElementsByClassName("task");
+        s=document.getElementsByClassName("mySpan");    
+        c=document.getElementsByClassName("myCheckbox");   
+        var array1=Array.prototype.slice.call(s);
+            //---------------------------------------------
+        array1.forEach(function(index){
+            var temp=array1.indexOf(index);
+            s[temp].onclick=function(){
+            arr.splice(temp,1); document.getElementById("list").removeChild(t[temp]);
+            }
+            c[temp].onclick=function(){
+                if(c[temp].checked==true)
+                {
+                    t[temp].querySelector("h1").style.textDecoration="line-through";
+                     arr[temp].check=true;
+                }   
+                else
+                    {
+                         t[temp].querySelector("h1").style.textDecoration="none";
+                        arr[temp].checked=false;
+                    }
+            }
+            t[temp].querySelector("button").onclick=function(){
+                           
+                  arr[temp].date=t[temp].querySelectorAll("input")[1].value;
+                arr[temp].check=c[temp].checked;
+                arr[temp].comments=t[temp].querySelector("textarea").value;
+                
+                }
+             t[temp].onmouseover=function(){
+            t[temp].querySelector("textarea").style.display="";
+        }  
+                       t[temp].onmouseout=function(){
+                t[temp].querySelector("textarea").style.display="none";     
+                 }
+              
+            document.getElementById("sort").onclick=
+                  function(){
+               
+                  arr.sort(compare);
+                  
+                  for(var i=0;i<arr.length;i++)
+                  {
+                      t[i].querySelector("span").innerHTML=arr[i].task;
+                     var checked= t[i].querySelector("input").checked;
+                     checked=arr[i].check;
+                     
+                      if(checked==false)
+                          {
+                        t[i].querySelector("h1").style.textDecoration="none";
+                      t[i].querySelector("input").checked=false;
+                          }
+                      else
+                          {
+                        t[i].querySelector("h1").style.textDecoration="line-through";  
+                    t[i].querySelector("input").checked=true;          
+                          }
+                      t[i].querySelectorAll("input")[1].value=arr[i].date;
+                      t[i].querySelector("textarea").value=arr[i].comments;
+                      
+                  }
+              }
+        
+            
+            
+        });
+            s[s.length-1].onclick=function(){
+                 document.getElementById("list").removeChild(t[s.length-1]);
+            };
+         document.getElementById("view").onclick=function(){
+              if(document.getElementById("secondView").style.visibility=="hidden")
+            {     
+    document.getElementById("firstView").style.visibility="hidden";
+    document.getElementById("secondView").style.visibility="visible";            
+            }
+             else{
+        document.getElementById("firstView").style.visibility="visible";
+    document.getElementById("secondView").style.visibility="hidden";         
+                 
+             }
+             var array2=new Array();
+             for(var i=0;i<arr.length;i++)
+                 {
+                     var myDate=arr[i].date.split("-");
+                     
+                     if(parseInt(myDate[1])==9)
+                        {
+                                 
+                        array2.push(arr[i]);
+                
+                        }
+                 }
+                 
+        var table=document.querySelector("table");
+             array2.forEach(function(index){
+                 for(var i=0,row;row=table.rows[i];i++)
+                {    
+                
+                   for(var j=0,col;col=row.cells[j];j++)
+                   {
+                       var myDate=index.date.split("-");
+                       if(parseInt(myDate[2])==parseInt(row.cells[j].innerHTML)&&(!row.cells[j].innerHTML.includes(
+                       index.task)))
+                       {var data=row.cells[j].innerHTML;
+                       row.cells[j].innerHTML=data+"<br />"+
+                           index.task;
+                       }
+                   }
+                
+                }
+                 
+             })
+         }   
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
